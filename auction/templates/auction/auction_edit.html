@@ -1,0 +1,40 @@
+{% extends "auction/base.html" %}
+{% block content %}
+    <div class="card">
+        <div class="card-body mx-auto">
+            <p>タイトル：{{ book.title }}</p>
+            <p>価格：{{ book.price }}</p>
+            <p>ISBN-10：{{ book.isbn_10 }}</p>
+            <p>ISBN-13：{{ book.isbn_13 }}</p>
+            <form action="" method="post">
+                {{ form.non_field_errors }}
+                {% for field in form %}
+                    <div class="form-group">
+                        <label for="{{ field.id_for_label }}">{{ field.label_tag }}</label>
+                        {{ field }}
+                        {{ field.help_text }}
+                        {{ field.errors }}
+                    </div>
+                {% endfor %}
+                <p>受け渡し場所：{{ book.trade_place }}</p>
+                <p>受け渡し日時：{{ book.trade_date }}</p>
+                <p>出品日：{{ book.pub_date }}</p>
+                <p>オークション終了日時：{{ book.due_date }}</p>
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary btn-lg">edit</button>
+            </form>
+            {% if delete_button is True %}
+                <form action="{% url 'auction:auction_delete' book.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary btn-lg">delete</button>
+                </form>
+            {% endif %}
+
+            {% if to_chat_button %}
+                <form action="{% url 'chat:room' book.id %}">
+                    <button type="submit" class="btn btn-primary btn-lg">Chat</button>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

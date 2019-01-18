@@ -1,0 +1,62 @@
+<html lang="ja">
+<head>
+    {% load static %}
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'auction/css/bootstrap.min.css' %}">
+
+    <title>TRAS</title>
+</head>
+<body>
+<!-- ナビバー -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="{% url 'auction:top' %}">TRAS</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'auction:top' %}">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'auction:auction_manager' %}">オークション管理</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'auction:bid_list' %}">入札リスト</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'auction:success_bid_auction_list' %}">落札オークション</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'auction:history' %}">閲覧履歴</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'auction:notification' %}">お知らせ</a>
+            </li>
+            <li><a class="nav-item nav-link">{{ user.username }}さん</a></li>
+            <li>
+                <a class="nav-item nav-link" href="{% url 'accounts:logout' %}">ログアウト</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- メインコンテント -->
+<div class="container mt-3">
+    {% block content %}{% endblock %}
+</div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="{% static 'auction/js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'auction/js/bootstrap.bundle.js' %}"></script>
+<script src="{% static 'auction/js/bootstrap.js' %}"></script>
+
+</body>
+</html>

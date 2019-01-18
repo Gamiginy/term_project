@@ -1,0 +1,24 @@
+{% extends "auction/base.html" %}
+{% block content %}
+    <h1>お知らせ</h1>
+    {% if notification %}
+        <table class="table table-dark table-striped table-hover table-sm">
+            <thead class="thead-light">
+            <tr>
+                <td>タイトル</td>
+                <td>内容</td>
+                <td>通知日時</td>
+            </tr>
+            </thead>
+            <tbody>
+            {% for n in notification %}
+                <tr>
+                    <td>{{ n.title }}</td>
+                    <td>{{ n.description }}</td>
+                    <td>{{ n.date }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends "auction/base.html" %}
+{% block content %}
+
+    <h1>top</h1>
+    <form action="{% url 'auction:create_auction' %}" method="get">
+        <button type="submit" class="btn btn-primary btn-lg">出品</button>
+    </form>
+    <div class="card">
+        <div class="card-body mx-auto">
+            <form action="{% url 'auction:top' %}" method="get">
+                {{ form.non_field_errors }}
+                {% for field in form %}
+                <div class="form-group">
+                    <label for="{{ field.id_for_label }}">{{ field.label_tag }}</label>
+                    {{ field }}
+                    {{ field.help_text }}
+                    {{ field.errors }}
+                </div>
+                {% endfor %}
+                <button type="submit" class="btn btn-primary btn-lg">検索</button>
+            </form>
+        </div>
+    </div>
+
+
+    {% if auction_list %}
+        <table class="table table-dark table-striped table-hover table-sm">
+            <thead class="thead-light">
+                <tr>
+                    <td>タイトル</td>
+                    <td>価格</td>
+                    <td>受け渡し場所</td>
+                    <td>受け渡し日時</td>
+                    <td>オークション終了日時</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for book in auction_list %}
+                    <tr>
+                        <td><a href="{% url 'auction:auction_detail' book.id %}">{{ book.title }}</a></td>
+                        <td>{{ book.price }}円</td>
+                        <td>{{ book.trade_place }}</td>
+                        <td>{{ book.trade_date }}</td>
+                        <td>{{ book.due_date }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+
+{% endblock %}

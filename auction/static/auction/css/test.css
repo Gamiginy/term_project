@@ -1,0 +1,201 @@
+/* Fonts from Google Fonts - more at https://fonts.google.com */
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
+@import url('https://fonts.googleapis.com/css?family=Merriweather:400,700');
+
+*, *::before, *::after {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    line-height: 1em;
+}
+
+body {
+    background-color: white;
+    font-family: "Open Sans", sans-serif;
+    padding: 70px 25px 25px;
+    font-size: 18px;
+    margin: 0;
+    color: #444;
+}
+
+h1 {
+    font-family: "Merriweather", serif;
+    font-size: 32px;
+}
+
+.inserted_img {
+    display: block;
+    max-width: 100%;
+    margin: 1em auto;
+}
+
+section {
+    max-width: 900px;
+    margin: 1em auto;
+    padding: 70px 0 0;
+}
+
+h2 {
+    padding-left: 10px;
+    box-shadow: -10px 0 dimgrey;
+}
+
+section:target > h2 {
+    box-shadow: -10px 0 tomato;
+}
+
+[dn] {
+    display: none;
+}
+
+ul {
+    list-style: none;
+}
+
+[ui] {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+#r2t {
+    position: fixed;
+    right: 1em;
+    bottom: 1em;
+    border: 1px solid dimgrey;
+    background: rgba(255, 255, 255, .7);
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 50px;
+    background: dimgrey;
+}
+
+nav {
+    position: absolute;
+    top: 0;
+    right: 100%;
+}
+
+nav a:link,
+nav a:visited,
+label[for^="c_menu"] {
+    display: block;
+    color: currentColor;
+    text-decoration: none;
+    padding: 1em;
+}
+
+nav a:hover,
+label[for^="c_menu"]:hover,
+input[name="menu"]:checked + label {
+    background: #ddd;
+    box-shadow: -7px 0 #ddd;
+}
+
+#menu_btn_tgl {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    color: #fff;
+    font-size: 50px;
+    line-height: 50px;
+    text-align: center;
+    transition: left .5s;
+}
+
+#menu_btn:checked + #menu_btn_tgl {
+    left: 200%;
+    font-size: 0;
+}
+
+#menu_btn:checked + #menu_btn_tgl::before {
+    content: "×";
+    font-size: 50px;
+    line-height: 50px;
+}
+
+#menu_btn:checked + #menu_btn_tgl::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, .1)
+}
+
+#menu_w {
+    width: 200px;
+    height: calc(100vh - 1em);
+    overflow-x: hidden;
+    background: #fff;
+    padding: 1em;
+    box-shadow: 0 1em #fff;
+    transition: .5s;
+}
+
+#menu_btn:checked ~ #menu_w {
+    transform: translateX(100%);
+    box-shadow: 0 1em #fff,
+    -2em 0 10px 2em; /*∵影が上端・下端にフィットするように*/
+}
+
+label[for^="c_menu"] {
+    position: relative;
+}
+
+label[for^="c_menu"]::after {
+    content: "";
+    position: absolute;
+    top: .9em;
+    right: 1em;
+    display: block;
+    width: 1em;
+    height: 1em;
+    background-size: 1em 7px, 7px 1em;
+    background-position: -1em calc(1em - 7px), calc(1em - 7px) 1em;
+    background-image: linear-gradient(90deg, #aaa 0%, #aaa 100%),
+    linear-gradient(0deg, #aaa 0%, #aaa 100%);
+    background-repeat: no-repeat;
+    transform: rotateZ(45deg);
+}
+
+input[name="menu"]:checked + label[for^="c_menu"]::after {
+    animation: c_menu_after .5s linear forwards;
+}
+
+@keyframes c_menu_after {
+    50% {
+        background-position: 0 calc(1em - 7px), calc(1em - 7px) 1em;
+    }
+    50.1% {
+        background-position: 0 calc(1em - 7px), calc(1em - 7px) .5em;
+    }
+    100% {
+        background-position: 0 calc(1em - 7px), calc(1em - 7px) 0;
+    }
+}
+
+input[name="menu"]:checked ~ .child_menu {
+    box-shadow: -7px 0 #ddd;
+}
+
+.child_menu > li {
+    overflow: hidden;
+    height: 0;
+    transition: .5s;
+}
+
+input[name="menu"]:checked ~ .child_menu > li {
+    height: 3em;
+}

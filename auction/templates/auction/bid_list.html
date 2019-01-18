@@ -1,0 +1,44 @@
+{% extends "auction/base.html" %}
+{% block content %}
+
+    <div class="card">
+        <div class="card-body mx-auto">
+            <form action="{% url 'auction:bid_list' %}" method="get">
+                {{ form.non_field_errors }}
+                {% for field in form %}
+                    <div class="form-group">
+                        <label for="{{ field.id_for_label }}">{{ field.label_tag }}</label>
+                        {{ field }}
+                        {{ field.help_text }}
+                        {{ field.errors }}
+                    </div>
+                {% endfor %}
+                <button type="submit" class="btn btn-primary btn-lg">検索</button>
+            </form>
+        </div>
+    </div>
+
+    {% if bid_list %}
+        <table class="table table-dark table-striped table-hover table-sm">
+            <thead class="thead-light">
+            <tr>
+                <td>タイトル</td>
+                <td>現在価格</td>
+                <td>入札価格</td>
+                <td>オークション終了日時</td>
+            </tr>
+            </thead>
+            <tbody>
+            {% for bid in bid_list %}
+                <tr>
+                    <td><a href="{% url 'auction:auction_detail' bid.book.id %}">{{ bid.book.title }}</a></td>
+                    <td>{{ bid.book.price }}円</td>
+                    <td>{{ bid.price }}円</td>
+                    <td>{{ bid.book.due_date }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+
+{% endblock %}
